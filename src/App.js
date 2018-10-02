@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Timer from "./components/Timer";
+import StartButton from "./components/StartButton";
 import "./App.css";
 
 class App extends Component {
@@ -9,12 +10,17 @@ class App extends Component {
     isStoped: false
   };
 
-
+  timerStart = time => {
+    this.setState({
+      timer: time
+    });
+  };
 
   render() {
     return (
       <div className="App">
-        <Timer />
+        <Timer timer={this.state.timer} />
+        <StartButton timerStart={this.timerStart} />
       </div>
     );
   }

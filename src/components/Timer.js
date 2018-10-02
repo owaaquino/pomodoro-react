@@ -2,7 +2,7 @@ import React from "react";
 
 class Timer extends React.Component {
   render() {
-    return <h1>{Date.now()}</h1>;
+    return <h1>{this.props.timer}</h1>;
   }
 }
 
