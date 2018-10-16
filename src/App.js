@@ -6,21 +6,40 @@ import "./App.css";
 class App extends Component {
   state = {
     timer: 0,
-    isStart: false,
-    isStoped: false
+    isRunning: false,
+    prevTime: 0
   };
 
-  timerStart = time => {
-    this.setState({
-      timer: time
-    });
+  countDown = value => {
+    console.log(value);
+  };
+
+  startTimer = e => {
+    this.setState(prevState => ({
+      isRunning: !prevState.isRunning
+    }));
+    if (!this.state.isRunning) {
+      console.log("startting...");
+      this.setState({ prevTime: Date.now() });
+    } else {
+      console.log("stopping...");
+    }
+  };
+
+  resetTimer = e => {
+    console.log("boop!");
   };
 
   render() {
     return (
       <div className="App">
         <Timer timer={this.state.timer} />
-        <StartButton timerStart={this.timerStart} />
+        <StartButton
+          timer={this.state.timer}
+          isRunning={this.state.isRunning}
+          startTimer={this.startTimer}
+          resetTimer={this.resetTimer}
+        />
       </div>
     );
   }
