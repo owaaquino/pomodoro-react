@@ -10,11 +10,25 @@ class App extends Component {
     prevTime: 0
   };
 
-  countDown = value => {
-    console.log(value);
+  componentDidMount() {
+    this.intervalId = setInterval(() => this.tick(), 100);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  tick = () => {
+    if (this.state.isRunning) {
+      const now = Date.now();
+      this.setState(prevState => ({
+        prevTime: now,
+        timer: prevState.timer + (now - this.state.prevTime)
+      }));
+    }
   };
 
-  startTimer = e => {
+  startTimer = () => {
     this.setState(prevState => ({
       isRunning: !prevState.isRunning
     }));
@@ -26,14 +40,18 @@ class App extends Component {
     }
   };
 
-  resetTimer = e => {
-    console.log("boop!");
+  resetTimer = () => {
+    this.setState({
+      timer: 0
+    });
   };
 
   render() {
+    const seconds = Math.floor(this.state.timer / 1000);
+    const minutes = Math.floor(this.state.timer / 1000);
     return (
       <div className="App">
-        <Timer timer={this.state.timer} />
+        <Timer seconds={seconds} minutes={minutes} />
         <StartButton
           timer={this.state.timer}
           isRunning={this.state.isRunning}

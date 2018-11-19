@@ -1,9 +1,11 @@
 import React from "react";
 
-class Timer extends React.Component {
-  render() {
-    return <h1>{this.props.timer}</h1>;
-  }
-}
+const Timer = props => {
+  return (
+    <h1>
+      {props.minutes} : {props.seconds}
+    </h1>
+  );
+};
 
 export default Timer;
